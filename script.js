@@ -13,6 +13,8 @@ function imageMode(color) {
   image3.src = `./img/undraw_conceptual_idea_${color}.svg`;
 }
 
+//function toggleLightDarkMode(isDark) {}
+
 // Dark mode
 
 function darkMode() {
@@ -37,12 +39,28 @@ function lightMode() {
 function switchTheme(e) {
   if (e.target.checked) {
     document.documentElement.setAttribute("data-theme", "dark");
+    localStorage.setItem("theme", "dark");
     darkMode();
   } else {
     document.documentElement.setAttribute("data-theme", "light");
+    localStorage.setItem("theme", "light");
     lightMode();
   }
 }
 
 // Add ewent
 toogleSwitch.addEventListener("change", switchTheme);
+
+// Check localStorage
+const currentTheme = localStorage.getItem("theme");
+
+if (currentTheme) {
+  document.documentElement.setAttribute("data-theme", currentTheme);
+
+  if (currentTheme === "dark") {
+    toogleSwitch.checked = true;
+    darkMode();
+  } else {
+    lightMode();
+  }
+}
